@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class Measurement {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "value")

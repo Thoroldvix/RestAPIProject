@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.RESTAPIProject.util.Util.getErrorMessages;
 
@@ -36,9 +38,18 @@ public class MeasurementController {
         this.measurementService = measurementService;
 
     }
+    @GetMapping()
+    public List<MeasurementDTO> getMeasurements() {
+        return measurementService.findAll().stream().map(this::convertToMeasurementDTO)
+                .collect(Collectors.toList());
+    }
+    @GetMapping("/rainyDaysCount")
+    public String getRainyDaysCount() {
+        return "Total count of rainy days is: " + measurementService.getRainyDaysCount();
+    }
 
     @PostMapping("/add")
-    public ResponseEntity<HttpStatus> addMeasurements(@RequestBody @Valid MeasurementDTO measurementDTO,
+    public ResponseEntity<HttpStatus> addMeasurement(@RequestBody @Valid MeasurementDTO measurementDTO,
                                                       BindingResult bindingResult) {
         measurementDTOValidator.validate(measurementDTO, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -59,5 +70,8 @@ public class MeasurementController {
 
     private Measurement convertToMeasurement(MeasurementDTO measurementDTO) {
         return modelMapper.map(measurementDTO, Measurement.class);
+    }
+    private MeasurementDTO convertToMeasurementDTO(Measurement measurement) {
+        return modelMapper.map(measurement, MeasurementDTO.class);
     }
 }

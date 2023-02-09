@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,5 +34,13 @@ public class MeasurementService {
     private void setMeasurementSensor(Measurement measurement) {
         Optional<Sensor> sensor = sensorService.findByName(measurement.getSensor().getName());
         sensor.ifPresent(measurement::setSensor);
+    }
+
+    public List<Measurement> findAll() {
+        return measurementRepository.findAll();
+    }
+
+    public int getRainyDaysCount() {
+       return measurementRepository.getRainyDaysCount();
     }
 }

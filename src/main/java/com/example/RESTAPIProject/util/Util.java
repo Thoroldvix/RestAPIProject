@@ -17,6 +17,6 @@ public final class Util {
                 .append(error.getDefaultMessage())
                 .append("; "));
 
-        return errorMessage.toString();
+        return errorMessage.toString().trim();
     }
 }

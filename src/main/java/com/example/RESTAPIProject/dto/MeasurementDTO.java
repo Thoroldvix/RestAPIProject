@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public class MeasurementDTO {
     private LocalDateTime timeOfMeasurement;
-    private int rainyDaysCount;
+
     @Range(min = -100, max = 100, message = "Value should be between -100 and 100")
     private float value;
 
@@ -32,13 +32,7 @@ public class MeasurementDTO {
         this.timeOfMeasurement = timeOfMeasurement;
     }
 
-    public int getRainyDaysCount() {
-        return rainyDaysCount;
-    }
 
-    public void setRainyDaysCount(int rainyDaysCount) {
-        this.rainyDaysCount = rainyDaysCount;
-    }
 
     public float getValue() {
         return value;
